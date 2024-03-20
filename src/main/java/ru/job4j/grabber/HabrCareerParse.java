@@ -7,10 +7,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 
 public class HabrCareerParse {
 
@@ -30,11 +26,8 @@ public class HabrCareerParse {
             String vacancyName = titleElement.text();
             String vacancyDate = row.select(".vacancy-card__date").first()
                     .child(0).attr("datetime");
-            String vacancyFormattedDate = LocalDateTime.ofInstant(
-                            Instant.from(DateTimeFormatter.ISO_INSTANT.parse(vacancyDate)), ZoneId.systemDefault())
-                    .toLocalDate().format(DateTimeFormatter.ISO_DATE);
             String link = String.format("%s%s", SOURCE_LINK, linkElement.attr("href"));
-            System.out.printf("%s %s (%s)%n", vacancyName, link, vacancyFormattedDate);
+            System.out.printf("%s %s (%s)%n", vacancyName, link, vacancyDate);
         });
     }
 }
