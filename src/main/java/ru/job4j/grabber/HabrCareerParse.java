@@ -6,7 +6,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import ru.job4j.grabber.utils.DateTimeParser;
-import ru.job4j.grabber.utils.HabrCareerDateTimeParser;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -36,14 +35,6 @@ public class HabrCareerParse implements Parse {
             e.printStackTrace();
         }
         return description;
-    }
-
-    public static void main(String[] args) {
-        HabrCareerParse parse = new HabrCareerParse(new HabrCareerDateTimeParser());
-        for (int pageNumber = 1; pageNumber <= 5; pageNumber++) {
-            String lLink = "%s%s%d%s".formatted(SOURCE_LINK, PREFIX, pageNumber, SUFFIX);
-            parse.list(lLink).forEach(System.out::println);
-        }
     }
 
     @Override

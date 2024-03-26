@@ -1,8 +1,6 @@
 package ru.job4j.grabber;
 
-import java.io.InputStream;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -93,29 +91,4 @@ public class PsqlStore implements Store {
             connection.close();
         }
     }
-
-    public static void main(String[] args) {
-        try (InputStream input = PsqlStore.class.getClassLoader()
-                .getResourceAsStream("app.properties")) {
-            Properties config = new Properties();
-            config.load(input);
-            try (PsqlStore store = new PsqlStore(config)) {
-                store.save(new Post("Вакансия 1", "Линк вакансии 1", "Это вакансия 1",
-                        LocalDateTime.of(2024, 3, 23, 15, 24, 0)));
-                store.save(new Post("Вакансия 2", "Линк вакансии 2", "Это вакансия 2",
-                        LocalDateTime.of(2024, 3, 24, 15, 24, 0)));
-                store.save(new Post("Вакансия 3", "Линк вакансии 3", "Это вакансия 3",
-                        LocalDateTime.of(2024, 3, 25, 15, 24, 0)));
-                System.out.println("Все вакансии:");
-                store.getAll().forEach(System.out::println);
-                System.out.println("Вакансия c id = 2:");
-                System.out.println(store.findById(2));
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
-        }
-    }
-
 }
