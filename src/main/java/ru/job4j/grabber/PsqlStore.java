@@ -78,11 +78,7 @@ public class PsqlStore implements Store {
             statement.execute();
             try (ResultSet resultSet = statement.getResultSet()) {
                 while (resultSet.next()) {
-                    post = new Post(resultSet.getInt(1),
-                            resultSet.getString(2),
-                            resultSet.getString(3),
-                            resultSet.getString(4),
-                            resultSet.getTimestamp(5).toLocalDateTime());
+                    post = getPost(resultSet);
                 }
             }
         } catch (SQLException e) {
